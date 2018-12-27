@@ -2,28 +2,34 @@ package io.eblock.eos4j.api.utils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.concurrent.TimeUnit;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.eblock.eos4j.api.exception.ApiError;
 import io.eblock.eos4j.api.exception.ApiException;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.gson.*;
 
 public class Generator {
 
 	private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-	private static Retrofit.Builder builder = new Retrofit.Builder()
-			.addConverterFactory(JacksonConverterFactory.create());
 
 	private static Retrofit retrofit;
 
+	private static Gson gson = new GsonBuilder().setLenient().create();
+
+	private static Retrofit.Builder builder = new Retrofit.Builder()
+			.addConverterFactory(GsonConverterFactory.create(gson));
+
 	public static <S> S createService(Class<S> serviceClass, String baseUrl) {
 		builder.baseUrl(baseUrl);
-		builder.client(httpClient.build());
-		builder.addConverterFactory(JacksonConverterFactory.create());
+		builder.client(httpClient.connectTimeout(180L, TimeUnit.SECONDS).readTimeout(180L, TimeUnit.SECONDS).build());
+		builder.addConverterFactory(GsonConverterFactory.create(gson));
 		retrofit = builder.build();
 		return retrofit.create(serviceClass);
 	}
