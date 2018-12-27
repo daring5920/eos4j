@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.eblock.eos</groupId>
   <artifactId>eos4j</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>eos4j</name>
   <description>create by esprit block</description>
 
