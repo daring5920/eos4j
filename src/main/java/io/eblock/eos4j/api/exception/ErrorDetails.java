@@ -54,4 +54,13 @@ public class ErrorDetails {
 		this.method = method;
 	}
 
+	@Override
+	public String toString() {
+		return "ErrorDetails{" +
+				"message='" + message + '\'' +
+				", file='" + file + '\'' +
+				", lineNumber=" + lineNumber +
+				", method='" + method + '\'' +
+				'}';
+	}
 }

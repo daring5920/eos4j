@@ -14,8 +14,8 @@ public class TxSign extends BaseVo {
 	}
 
 	public TxSign(String chain_id, Tx transaction) {
-		this.chain_id = chain_id;
 		this.transaction = transaction;
+		this.chain_id = chain_id;
 	}
 
 	private String chain_id;

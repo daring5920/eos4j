@@ -1,5 +1,7 @@
 package io.eblock.eos4j.api.exception;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author espritblock http://eblock.io
@@ -51,4 +53,13 @@ public class Error {
 		this.details = details;
 	}
 
+	@Override
+	public String toString() {
+		return "Error{" +
+				"code='" + code + '\'' +
+				", name='" + name + '\'' +
+				", what='" + what + '\'' +
+				", details=" + Arrays.toString(details) +
+				'}';
+	}
 }

@@ -16,9 +16,13 @@ public class Ese {
 
 	/**
 	 * parseTransferData
-	 * 
-	 * @param datas
-	 * @return
+	 * @author shenzucai
+	 * @time 2018.11.05 19:33
+	 * @param from
+	 * @param to
+	 * @param quantity
+	 * @param memo
+	 * @return true
 	 */
 	public static String parseTransferData(String from, String to, String quantity, String memo) {
 		DataParam[] datas = new DataParam[] { new DataParam(from, DataType.name, Action.transfer),
@@ -39,10 +43,12 @@ public class Ese {
 	
 
 	/**
-	 * parseTransferData
-	 * 
-	 * @param datas
-	 * @return
+	 * parseVoteProducerData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:34
+	 * @param voter* @param proxy
+	 * @param producers
+	 * @return true
 	 */
 	public static String parseVoteProducerData(String voter, String proxy, List<String> producers) {
 		List<DataParam> datas = new ArrayList<DataParam>();
@@ -67,10 +73,14 @@ public class Ese {
 	
 
 	/**
-	 * parseTransferData
-	 * 
-	 * @param datas
-	 * @return
+	 * parseAccountData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:34
+	 * @param creator
+	 * @param name
+	 * @param onwer
+	 * @param active
+	 * @return true
 	 */
 	public static String parseAccountData(String creator, String name, String onwer, String active) {
 
@@ -93,10 +103,15 @@ public class Ese {
 	}
 
 	/**
-	 * parseBuyRamData
-	 * 
-	 * @param datas
-	 * @return
+	 * parseDelegateData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:34
+	 * @param from
+	 * @param receiver
+	 * @param stakeNetQuantity
+	 * @param stakeCpuQuantity
+	 * @param transfer
+	 * @return true
 	 */
 	public static String parseDelegateData(String from, String receiver, String stakeNetQuantity,
 			String stakeCpuQuantity, int transfer) {
@@ -116,10 +131,39 @@ public class Ese {
 	}
 
 	/**
-	 * parseTransferData
-	 * 
-	 * @param datas
-	 * @return
+	 * parseUnDelegateData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:34
+	 * @param from
+	 * @param receiver
+	 * @param stakeNetQuantity
+	 * @param stakeCpuQuantity
+	 * @return true
+	 */
+	public static String parseUnDelegateData(String from, String receiver, String stakeNetQuantity,
+										   String stakeCpuQuantity) {
+
+		DataParam[] datas = new DataParam[] { new DataParam(from, DataType.name, Action.delegate),
+				new DataParam(receiver, DataType.name, Action.delegate),
+				new DataParam(stakeNetQuantity, DataType.asset, Action.delegate),
+				new DataParam(stakeCpuQuantity, DataType.asset, Action.delegate)
+
+		};
+		byte[] allbyte = new byte[] {};
+		for (DataParam value : datas) {
+			allbyte = ByteUtils.concat(allbyte, value.seria());
+		}
+		return Hex.bytesToHexString(allbyte);
+	}
+
+	/**
+	 * parseBuyRamData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:35
+	 * @param payer
+	 * @param receiver
+	 * @param bytes
+	 * @return true
 	 */
 	public static String parseBuyRamData(String payer, String receiver, Long bytes) {
 
@@ -134,12 +178,58 @@ public class Ese {
 		}
 		return Hex.bytesToHexString(allbyte);
 	}
+
+	/**
+	 * parseBuyRamData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:35
+	 * @param payer
+	 * @param receiver
+	 * @param tokens
+	 * @return true
+	 */
+	public static String parseBuyRamData(String payer, String receiver, String tokens) {
+
+		DataParam[] datas = new DataParam[] { new DataParam(payer, DataType.name, Action.ram),
+				new DataParam(receiver, DataType.name, Action.ram),
+				new DataParam(tokens, DataType.asset, Action.delegate)
+
+		};
+		byte[] allbyte = new byte[] {};
+		for (DataParam value : datas) {
+			allbyte = ByteUtils.concat(allbyte, value.seria());
+		}
+		return Hex.bytesToHexString(allbyte);
+	}
+
+	/**
+	 * parseSellRamData
+	 * @author shenzucai
+	 * @time 2018.11.05 19:35
+	 * @param payer
+	 * @param bytes
+	 * @return true
+	 */
+	public static String parseSellRamData(String payer, Long bytes) {
+
+		DataParam[] datas = new DataParam[] { new DataParam(payer, DataType.name, Action.ram),
+				new DataParam(String.valueOf(bytes), DataType.unit64, Action.ram)
+
+		};
+		byte[] allbyte = new byte[] {};
+		for (DataParam value : datas) {
+			allbyte = ByteUtils.concat(allbyte, value.seria());
+		}
+		return Hex.bytesToHexString(allbyte);
+	}
 	
 	/**
 	 * parseCloseData
-	 * 
-	 * @param datas
-	 * @return
+	 * @author shenzucai
+	 * @time 2018.11.05 19:35
+	 * @param owner
+	 * @param symbol
+	 * @return true
 	 */
 	public static String parseCloseData(String owner, String symbol) {
 		DataParam[] datas = new DataParam[] { 

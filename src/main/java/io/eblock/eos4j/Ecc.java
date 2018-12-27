@@ -54,7 +54,7 @@ public class Ecc {
 	 * 
 	 * @param privateKey
 	 *            私钥
-	 * @param data
+	 * @param sign
 	 *            需要签名的对象
 	 * @return
 	 */
@@ -97,7 +97,7 @@ public class Ecc {
 	 *            创建者
 	 * @param name
 	 *            账户名
-	 * @param onwe
+	 * @param onwer
 	 *            onwer公钥
 	 * @param active
 	 *            active公钥
@@ -145,7 +145,7 @@ public class Ecc {
 	/**
 	 * 关闭token
 	 * @param owner
-	 * @param symble
+	 * @param symbol
 	 * @return
 	 */
 	public static String parseCloseData(String owner, String symbol) {
