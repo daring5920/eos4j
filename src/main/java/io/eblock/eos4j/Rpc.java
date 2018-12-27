@@ -20,7 +20,8 @@ import io.eblock.eos4j.api.vo.SignParam;
 import io.eblock.eos4j.api.vo.TableRows;
 import io.eblock.eos4j.api.vo.TableRowsReq;
 import io.eblock.eos4j.api.vo.account.Account;
-import io.eblock.eos4j.api.vo.transaction.Transaction;
+import io.eblock.eos4j.api.vo.transaction.history.Transaction;
+import io.eblock.eos4j.api.vo.transaction.action.ActionsCopy;
 import io.eblock.eos4j.api.vo.transaction.push.Tx;
 import io.eblock.eos4j.api.vo.transaction.push.TxAction;
 import io.eblock.eos4j.api.vo.transaction.push.TxRequest;
@@ -94,7 +95,7 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction pushTransaction(String compression, Tx pushTransaction, String[] signatures) throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction pushTransaction(String compression, Tx pushTransaction, String[] signatures) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String mapJakcson = mapper.writeValueAsString(new TxRequest(compression, pushTransaction, signatures));
 		System.out.println(mapJakcson);
@@ -109,7 +110,7 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction pushTransaction(String tx) throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction pushTransaction(String tx) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		TxRequest txObj = mapper.readValue(tx, TxRequest.class);
 		return Generator.executeSync(rpcService.pushTransaction(txObj));
@@ -152,7 +153,7 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction transfer(String pk, String contractAccount, String from, String to, String quantity, String memo)
+	public io.eblock.eos4j.api.vo.transaction.Transaction transfer(String pk, String contractAccount, String from, String to, String quantity, String memo)
 			throws Exception {
 		// get chain info
 		ChainInfo info = getChainInfo();
@@ -211,8 +212,8 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction createAccount(String pk, String creator, String newAccount, String owner, String active,
-			Long buyRam) throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction createAccount(String pk, String creator, String newAccount, String owner, String active,
+																		Long buyRam) throws Exception {
 		// get chain info
 		ChainInfo info = getChainInfo();
 		// get block info
@@ -280,8 +281,8 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction createAccount(String pk, String creator, String newAccount, String owner, String active,
-			Long buyRam, String stakeNetQuantity, String stakeCpuQuantity, Long transfer) throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction createAccount(String pk, String creator, String newAccount, String owner, String active,
+																		Long buyRam, String stakeNetQuantity, String stakeCpuQuantity, Long transfer) throws Exception {
 		// get chain info
 		ChainInfo info = getChainInfo();
 		// info.setChainId("cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f");
@@ -351,7 +352,7 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction voteproducer(String pk,String voter,String proxy,List<String> producers) throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction voteproducer(String pk, String voter, String proxy, List<String> producers) throws Exception {
 		Comparator<String> comparator = (h1, h2) -> h2.compareTo(h1);
 		producers.sort(comparator.reversed());
 		// get chain info
@@ -395,7 +396,7 @@ public class Rpc {
 	 * @return
 	 * @throws Exception
 	 */
-	public Transaction close(String pk,String contract,String owner, String symbol)throws Exception {
+	public io.eblock.eos4j.api.vo.transaction.Transaction close(String pk, String contract, String owner, String symbol)throws Exception {
 		ChainInfo info = getChainInfo();			
 		Block block = getBlock(info.getLastIrreversibleBlockNum().toString());
 		Tx tx = new Tx();
@@ -424,5 +425,33 @@ public class Rpc {
 		// reset expiration
 		tx.setExpiration(dateFormatter.format(new Date(1000 * Long.parseLong(tx.getExpiration().toString()))));
 		return pushTransaction("none", tx, new String[] { sign });
+	}
+
+	public List<String> getCurrencyBalance(String code, String accountName, String symbol){
+		LinkedHashMap<String, String> requestParameters = new LinkedHashMap<>(3);
+
+		requestParameters.put("code", code);
+		requestParameters.put("account", accountName);
+		requestParameters.put("symbol", symbol);
+
+		return Generator.executeSync(rpcService.getCurrencyBalance(requestParameters));
+	}
+
+	public ActionsCopy getActionsCopy(String accountName, Long pos, Long offset){
+		LinkedHashMap<String, Object> requestParameters = new LinkedHashMap<>(3);
+
+		requestParameters.put("account_name", accountName);
+		requestParameters.put("pos", pos);
+		requestParameters.put("offset", offset);
+
+		return Generator.executeSync(rpcService.getActionsCopy(requestParameters));
+	}
+
+	public Transaction getTransaction(String id){
+		LinkedHashMap<String, String> requestParameters = new LinkedHashMap<>(1);
+
+		requestParameters.put("id", id);
+
+		return Generator.executeSync(rpcService.getTransaction(requestParameters));
 	}
 }
