@@ -1,21 +1,19 @@
 package io.eblock.eos4j.api.vo.transaction;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  * @author espritblock http://eblock.io
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Transaction extends Base {
+public class Transaction{
 
-	@JsonProperty("transaction_id")
+	@SerializedName("transaction_id")
 	private String transactionId;
 
-	@JsonProperty("processed")
+	@SerializedName("processed")
 	private Processed processed;
 
 	public String getTransactionId() {

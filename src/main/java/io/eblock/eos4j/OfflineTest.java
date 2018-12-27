@@ -22,11 +22,12 @@ public class OfflineTest {
 		testOfflineCreate();*/
 		// testOfflinebuyRam();
 		//  testOfflinesellRam();
-		 testOfflineundelegatebw();
+		//  testOfflineundelegatebw();
+		testOfflineCreate();
 	}
 
 	public static void testOfflineCreate() {
-		Rpc rpc = new Rpc("http://junglehistory.cryptolions.io:18888");
+		Rpc rpc = new Rpc("http://jungle.cryptolions.io:18888");
 		// 获取离线签名参数
 		SignParam params = rpc.getOfflineSignParams(60L);
 		// 离线签名

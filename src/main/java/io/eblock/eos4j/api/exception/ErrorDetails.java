@@ -1,6 +1,7 @@
 package io.eblock.eos4j.api.exception;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class ErrorDetails {
 		return lineNumber;
 	}
 
-	@JsonProperty("line_number")
+	@SerializedName("line_number")
 	public void setLineNumber(Integer lineNumber) {
 		this.lineNumber = lineNumber;
 	}

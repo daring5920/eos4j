@@ -2,45 +2,45 @@ package io.eblock.eos4j.api.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  * @author espritblock http://eblock.io
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Block {
 
-	@JsonProperty("timestamp")
+	@SerializedName("timestamp")
 	private Date timestamp;
 
-	@JsonProperty("producer")
+	@SerializedName("producer")
 	private String producer;
 
-	@JsonProperty("confirmed")
+	@SerializedName("confirmed")
 	private Long confirmed;
 
-	@JsonProperty("previous")
+	@SerializedName("previous")
 	private String previous;
 
-	@JsonProperty("transaction_mroot")
+	@SerializedName("transaction_mroot")
 	private String transactionMroot;
 
-	@JsonProperty("action_mroot")
+	@SerializedName("action_mroot")
 	private String actionMroot;
 
-	@JsonProperty("schedule_version")
+	@SerializedName("schedule_version")
 	private String scheduleVersion;
 
-	@JsonProperty("id")
+	@SerializedName("id")
 	private String id;
 
-	@JsonProperty("block_num")
+	@SerializedName("block_num")
 	private Long blockNum;
 
-	@JsonProperty("ref_block_prefix")
+	@SerializedName("ref_block_prefix")
 	private Long refBlockPrefix;
 
 	public Block() {

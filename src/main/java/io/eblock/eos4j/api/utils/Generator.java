@@ -21,7 +21,7 @@ public class Generator {
 
 	private static Retrofit retrofit;
 
-	private static Gson gson = new GsonBuilder().setLenient().create();
+	private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 
 	private static Retrofit.Builder builder = new Retrofit.Builder()
 			.addConverterFactory(GsonConverterFactory.create(gson));

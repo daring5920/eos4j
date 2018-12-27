@@ -1,27 +1,26 @@
 package io.eblock.eos4j.api.vo.account;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  * @author espritblock http://eblock.io
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Permission {
 
 	public Permission() {
 
 	}
 
-	@JsonProperty("perm_name")
+	@SerializedName("perm_name")
 	private String permName;
 
-	@JsonProperty("parent")
+	@SerializedName("parent")
 	private String parent;
 
-	@JsonProperty("required_auth")
+	@SerializedName("required_auth")
 	private RequiredAuth requiredAuth;
 
 	public String getPermName() {

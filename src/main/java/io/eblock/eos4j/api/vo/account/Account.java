@@ -3,48 +3,48 @@ package io.eblock.eos4j.api.vo.account;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  * @author espritblock http://eblock.io
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Account {
 
-	@JsonProperty("account_name")
+	@SerializedName("account_name")
 	private String accountName;
 
-	@JsonProperty("privileged")
+	@SerializedName("privileged")
 	private String privileged;
 
-	@JsonProperty("last_code_update")
+	@SerializedName("last_code_update")
 	private Date lastCodeUpdate;
 
-	@JsonProperty("created")
+	@SerializedName("created")
 	private Date created;
 
-	@JsonProperty("ram_quota")
+	@SerializedName("ram_quota")
 	private Long ramQuota;
 
-	@JsonProperty("net_weight")
+	@SerializedName("net_weight")
 	private Long netWeight;
 
-	@JsonProperty("cpu_weight")
+	@SerializedName("cpu_weight")
 	private Long cpuWeight;
 
-	@JsonProperty("net_limit")
+	@SerializedName("net_limit")
 	private NetLimit netLimit;
 
-	@JsonProperty("cpu_limit")
+	@SerializedName("cpu_limit")
 	private CpuLimit cpuLimit;
 
-	@JsonProperty("ram_usage")
+	@SerializedName("ram_usage")
 	private Long ramUsage;
 
-	@JsonProperty("permissions")
+	@SerializedName("permissions")
 	private List<Permission> permissions;
 
 	public Account() {

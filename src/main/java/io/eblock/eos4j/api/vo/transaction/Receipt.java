@@ -1,23 +1,23 @@
 package io.eblock.eos4j.api.vo.transaction;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  * @author espritblock http://eblock.io
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Receipt {
 
-	@JsonProperty("status")
+	@SerializedName("status")
 	private String status;
 
-	@JsonProperty("cpu_usage_us")
+	@SerializedName("cpu_usage_us")
 	private Long cpuUsageUs;
 
-	@JsonProperty("net_usage_words")
+	@SerializedName("net_usage_words")
 	private Long netUsageWords;
 
 	public String getStatus() {
